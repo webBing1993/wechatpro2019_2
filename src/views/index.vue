@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="top">
-      <img src="../assets/indexImg.jpg"/>
+      <img src="../assets/Group 11.png"/>
     </div>
 
     <div class="cont">
