@@ -100,17 +100,18 @@ export default {
           ]
         }
         console.log(obj)
+           let _this=this;
         axios.post('http://qa.fortrun.cn:19761/wqtorder/wechat/add', obj)
           .then(function (response) {
-            console.log(response);
-              this.$vux.toast.show({
+            console.log(response)
+              _this.$vux.toast.show({
                   text: '预定成功'
               })
             router.push({path: '/bookDetail', query: {owner: obj.owner, phone: obj.ownerTel}})
           })
           .catch(function (response) {
             console.log(response)
-              this.$vux.toast.show({
+              _this.$vux.toast.show({
                   text: '预定失败'
               })
           })
