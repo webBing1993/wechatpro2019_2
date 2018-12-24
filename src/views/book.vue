@@ -110,6 +110,9 @@ export default {
           })
           .catch(function (response) {
             console.log(response)
+              this.$vux.toast.show({
+                  text: '预定失败'
+              })
           })
         // router.push('/bookDetail')
         // this.resource({
