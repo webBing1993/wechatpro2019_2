@@ -24,13 +24,22 @@ export default new Router({
       component: View2
     }, {
       path: '/book',
-      component: Book
+      component: Book,
+      meta: {
+        title: '微信智慧酒店'
+      }
     }, {
       path: '/bookDetail',
-      component: BookDetail
+      component: BookDetail,
+      meta: {
+        title: '微信智慧酒店'
+      }
     }, {
       path: '/*',
-      component: Index
+      component: Index,
+      meta: {
+        title: '微信智慧酒店'
+      }
     }
   ]
 })
