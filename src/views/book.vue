@@ -47,10 +47,13 @@
   </div>
 </template>
 <script>
+import Vue from 'vue'
 import {mapActions, mapState} from 'vuex'
 import router from '../router/index.js'
 import utils from '../tool/utils.js'
 import axios from 'axios'
+import { ToastPlugin } from 'vux'
+Vue.use(ToastPlugin)
 // import {Cell} from 'vux'
 const Today = new Date().getTime()
 const Tomorrow = Today + 24 * 3600 * 1000
@@ -76,7 +79,9 @@ export default {
     ]),
     confirmOrder () {
       if (this.owner === '' || this.ownerTel === '') {
-        this.showToast({text: '请填写完整信息', time: 2000})
+        this.$vux.toast.show({
+          text: '请填写完整信息'
+        })
       } else {
         let obj = {
           'hotelId': '9f4c9ac5b56c11e890456c92bf5e2912', // 酒店id
@@ -98,7 +103,7 @@ export default {
         axios.post('http://qa.fortrun.cn:19761/wqtorder/wechat/add', obj)
           .then(function (response) {
             console.log(response)
-            router.push('/bookDetail')
+            router.push({path: '/bookDetail', query: {owner: obj.owner, phone: obj.ownerTel}})
           })
           .catch(function (response) {
             console.log(response)
