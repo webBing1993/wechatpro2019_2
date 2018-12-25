@@ -195,7 +195,7 @@ export default {
   width: 98%;
   margin-left: -10px;
   height: 4rem;
-  position: fixed;
+  position: absolute;
   bottom: 0;
   border-top:1px solid #eeeeee;
 }

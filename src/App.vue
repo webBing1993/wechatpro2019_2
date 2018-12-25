@@ -31,4 +31,10 @@ export default {
 #app{
   background-color: #FFFFFF;
 }
+html,body{
+  position:relative;
+  height:100%;
+  min-height:100%;
+}
+
 </style>
