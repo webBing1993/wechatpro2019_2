@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 1rem">
+  <div style="padding: 0 1rem;height: 100%;position: relative">
     <br>
     <h2>微信智慧酒店</h2>
     <br>
