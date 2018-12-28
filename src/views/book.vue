@@ -29,15 +29,15 @@
       <div>
         <p class="inputBox">
           <span >房间</span>
-          <input type="text" placeholder="请输入房间" v-model="roomNo" disabled>
+          <input type="text" placeholder="请输入房间" v-model="roomNo" disabled >
         </p>
         <p class="inputBox">
           <span >姓名</span>
-          <input type="text" placeholder="请输入姓名" v-model="owner" id="name1">
+          <input type="text" placeholder="请输入姓名" v-model="owner" id="name1" @focus="focusevent" @blur="blurevent">
         </p>
         <p class="inputBox">
           <span >手机号</span>
-          <input type="text" placeholder="请输入手机号" v-model="ownerTel" id="phone1">
+          <input type="text" placeholder="请输入手机号" v-model="ownerTel" id="phone1" @focus="focusevent" @blur="blurevent">
         </p>
       </div>
 
@@ -81,6 +81,13 @@ export default {
       'resource',
       'showToast'
     ]),
+      focusevent(){
+
+      },
+      blurevent(){
+          window.scrollTo(0,0);
+          console.log(document.body.scrollTop)
+      },
     confirmOrder () {
       if (this.owner === '' || this.ownerTel === '') {
         this.$vux.toast.show({
@@ -149,12 +156,6 @@ export default {
     ])
   },
   mounted () {
-      document.getElementById('name1').addEventListener('foucs',() => {
-          window.scrollTo(0,0)
-      })
-      document.getElementById('name1').addEventListener('blur',() => {
-          window.scrollTo(0,0)
-      })
   }
 }
 </script>
