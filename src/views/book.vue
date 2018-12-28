@@ -58,12 +58,13 @@ Vue.use(ToastPlugin)
 // import {Cell} from 'vux'
 const Today = new Date().getTime();
 const Tomorrow = Today + 24 * 3600 * 1000;
-const h = document.body.scrollHeight  // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
-window.onresize = function () { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
-    if (document.body.scrollHeight < h) {
-        document.body.style.height = h
-    }
-};
+// const h = document.body.scrollHeight  // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
+// window.onresize = function () { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
+//     if (document.body.scrollHeight < h) {
+//         document.body.style.height = h
+//     }
+// };
+
 export default {
   components: {
 

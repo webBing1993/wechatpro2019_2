@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 100%;height: 100%">
     <div class="top">
       <img src="../assets/Group 11.png"/>
     </div>
@@ -32,7 +32,7 @@
         <!--<router-link class="bookBtn" to="book">预订</router-link>-->
       </div>
     </div>
-  </div>
+    </div>
 </template>
 <script>
 import {mapActions, mapState} from 'vuex'
@@ -102,7 +102,7 @@ export default {
   }
 .bottom {
   padding: 10px;
-  margin: 1rem auto;
+  margin: auto;
   border: 1px solid #f3f3f3;
 
   width: 80%;
