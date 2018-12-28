@@ -33,18 +33,17 @@
         </p>
         <p class="inputBox">
           <span >姓名</span>
-          <input type="text" placeholder="请输入姓名" v-model="owner" id="name1" @focus="focusevent" @blur="blurevent">
+          <input type="text" placeholder="请输入姓名" v-model="owner" id="name1" @focus="focusevent" @blur="blurevent" >
         </p>
         <p class="inputBox">
           <span >手机号</span>
-          <input type="text" placeholder="请输入手机号" v-model="ownerTel" id="phone1" @focus="focusevent" @blur="blurevent">
+          <input placeholder="请输入手机号" v-model="ownerTel" id="phone1" @focus="focusevent" @blur="blurevent" type="number" pattern="[0-9]*" >
         </p>
       </div>
-
-      <div class="bottomPayBtn">
-        <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥316</span></p>
-        <p class="pushBtn" @click="confirmOrder">提交订单</p>
-      </div>
+    </div>
+    <div class="bottomPayBtn">
+      <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥316</span></p>
+      <p class="pushBtn" @click="confirmOrder">提交订单</p>
     </div>
   </div>
 </template>
@@ -56,6 +55,7 @@ import router from '../router/index.js'
 import utils from '../tool/utils.js'
 import axios from 'axios'
 import { ToastPlugin } from 'vux'
+import $ from 'jquery'
 Vue.use(ToastPlugin)
 // import {Cell} from 'vux'
 const Today = new Date().getTime();
@@ -156,6 +156,8 @@ export default {
     ])
   },
   mounted () {
+      // var orderHight = document.body.clientHeight;
+      $('body').height($('body')[0].clientHeight);
   }
 }
 </script>
@@ -212,7 +214,9 @@ export default {
   width: 98%;
   margin-left: -10px;
   height: 4rem;
-  position: fixed;
+  /*left:0;*/
+  right:0;
+  position: absolute;
   bottom: 0;
   border-top:1px solid #eeeeee;
 }
