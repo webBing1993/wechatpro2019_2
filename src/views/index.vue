@@ -19,18 +19,9 @@
     </div>
     <br>
     <div class="bottom">
-      <img src="../assets/bottomImg.jpg" height="352" width="1256"/>
-      <div class="bottom_cont">
-        <div class="left">
-          <h3>标准房</h3>
-          <p class="txt">
-            <span>双早</span>
-            <span style="font-size: 18px">¥316</span>
-          </p>
-        </div>
-        <span class="bookBtn" @click="toBook">预订</span>
-        <!--<router-link class="bookBtn" to="book">预订</router-link>-->
-      </div>
+      <!--<img src="../assets/bottomImg.jpg" height="352" width="1256"/>-->
+      <img src="../assets/Group 10(2).png" />
+        <router-link class="bookBtn" to="book"></router-link>
     </div>
     </div>
 </template>
@@ -101,17 +92,25 @@ export default {
     }
   }
 .bottom {
-  padding: 10px;
+ position: relative;
   margin: auto;
-  border: 1px solid #f3f3f3;
-
-  width: 80%;
-  height: 12rem;
-  box-shadow: 0px 1px 5px 3px #fafafa;
+  width: 100%;
   img{
     display: inline-block;
     width: 100%;
-    height: 6rem;
+    /*height: 6rem;*/
+  }
+  .bookBtn{
+    position: absolute;
+    display: inline-block;
+    width: 6rem;
+    height:2rem;
+    right: 2rem;
+    bottom: 3rem;
+    border-radius: 15px;
+    line-height: 2rem;
+    background: none;
+    text-align: center;
   }
   .bottom_cont{
     align-items: center;
@@ -128,17 +127,7 @@ export default {
       justify-content: space-between;
     }
   }
-  .bookBtn{
-    display: inline-block;
-    width: 6rem;
-    height:2rem;
-    border-radius: 15px;
-    line-height: 2rem;
-    background: #1AAD19;
-    color:#FFFFFF;
-    text-align: center;
-    background: linear-gradient(to right, #00e2a8, #1bdbea);
-  }
+
 
 }
 </style>
