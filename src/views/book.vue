@@ -148,15 +148,17 @@ export default {
   },
   mounted () {
       var brower = navigator.userAgent.toLowerCase();
+      console.log('brower:',brower)
       var wx=false;
-      if(brower.match(/MicroMessenger/i)=="micromessenger") {
+      if(brower.match(/WindowsWechat/i)=="WindowsWechat"||brower.match(/MicroMessenger/i)=="MicroMessenger") {
           wx=true
-      }
-      var u = navigator.userAgent
-      var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //这个判断 是不是ios手机
+      };
+      console.log('wx:',wx)
+      // var u = navigator.userAgent
+      // var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //这个判断 是不是ios手机
       var flag
       var myFunction
-      if(wx && isiOS){ //既是微信浏览器 又是ios============（因为查到只有在微信环境下，ios手机上才会出现input失去焦点的时候页面被顶起）
+      if(wx){ //既是微信浏览器 又是ios============（因为查到只有在微信环境下，ios手机上才会出现input失去焦点的时候页面被顶起）
           document.body.addEventListener('focusin', () => {  //软键盘弹起事件
               flag=true
               clearTimeout(myFunction);
