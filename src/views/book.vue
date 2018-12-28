@@ -95,7 +95,7 @@ export default {
         })
       } else {
         let obj = {
-          'hotelId': '9f4c9ac5b56c11e890456c92bf5e2912', // 酒店id
+          'hotelId':'7a64f7504bab436590528d8b5b809e3a', // 酒店id
           'inTime': Today, // 入住时间
           'outTime': Tomorrow, // 离店时间
           'totalfee': '31600', // 总费用
