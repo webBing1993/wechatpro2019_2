@@ -103,7 +103,7 @@ export default {
         }
         console.log(obj)
            let _this=this;
-        axios.post('https://wqt.fortrun.cn/cloud/base-order/wqtorder/wechat/add', obj)
+        axios.post('http://qa.fortrun.cn:19761/wqtorder/wechat/add', obj)
           .then(function (response) {
             console.log(response)
               _this.$vux.toast.show({
