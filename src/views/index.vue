@@ -17,7 +17,7 @@
         <p>{{tomorrow}}</p>
       </div>
     </div>
-    <br>
+
     <div class="bottom">
       <!--<img src="../assets/bottomImg.jpg" height="352" width="1256"/>-->
       <img src="../assets/Group 10(2).png" />
@@ -62,7 +62,7 @@ export default {
     ])
   },
   mounted () {
-
+      window.scrollTo(0,0);
   }
 }
 </script>
@@ -79,7 +79,7 @@ export default {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 5rem;
+    height: 4rem;
     border-bottom: 1px solid #f2f2f2;
     .center{
       border: 1px solid #eeeeee;
@@ -112,22 +112,20 @@ export default {
     background: none;
     text-align: center;
   }
-  .bottom_cont{
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    .left{
-      width: 50%;
-      h3{
-        margin-bottom: 1rem;
-      }
-    }
-    .txt{
-      display: flex;
-      justify-content: space-between;
-    }
-  }
-
-
+  /*.bottom_cont{*/
+    /*align-items: center;*/
+    /*display: flex;*/
+    /*justify-content: space-between;*/
+    /*.left{*/
+      /*width: 50%;*/
+      /*h3{*/
+        /*margin-bottom: 1rem;*/
+      /*}*/
+    /*}*/
+    /*.txt{*/
+      /*display: flex;*/
+      /*justify-content: space-between;*/
+    /*}*/
+  /*}*/
 }
 </style>
