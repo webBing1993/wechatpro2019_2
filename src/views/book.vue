@@ -58,12 +58,6 @@ Vue.use(ToastPlugin)
 // import {Cell} from 'vux'
 const Today = new Date().getTime();
 const Tomorrow = Today + 24 * 3600 * 1000;
-// const h = document.body.scrollHeight  // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
-// window.onresize = function () { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
-//     if (document.body.scrollHeight < h) {
-//         document.body.style.height = h
-//     }
-// };
 
 export default {
   components: {
@@ -153,12 +147,16 @@ export default {
     ])
   },
   mounted () {
-      var broswer=localStorage.getItem('temp');  //浏览器环境
+      var brower = navigator.userAgent.toLowerCase();
+      var wx=false;
+      if(brower.match(/MicroMessenger/i)=="micromessenger") {
+          wx=true
+      }
       var u = navigator.userAgent
       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //这个判断 是不是ios手机
       var flag
       var myFunction
-      if(broswer=='wx' && isiOS){ //既是微信浏览器 又是ios============（因为查到只有在微信环境下，ios手机上才会出现input失去焦点的时候页面被顶起）
+      if(wx && isiOS){ //既是微信浏览器 又是ios============（因为查到只有在微信环境下，ios手机上才会出现input失去焦点的时候页面被顶起）
           document.body.addEventListener('focusin', () => {  //软键盘弹起事件
               flag=true
               clearTimeout(myFunction);
@@ -174,6 +172,16 @@ export default {
               }
           })
       }
+      console.log('broswer:',broswer)
+
+      const h = document.body.scrollHeight  // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
+      window.onresize = function () { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
+          console.log('h:',h)
+          if (document.body.scrollHeight < h) {
+              document.body.style.height = h
+          }
+      };
+      console.log('h:',h)
   }
 }
 </script>
