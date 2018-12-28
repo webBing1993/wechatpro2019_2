@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;height: 100%">
+  <div style="width: 100%;height: 100%;position: fixed;bottom: 0">
     <div class="top">
       <img src="../assets/Group 11.png"/>
     </div>
