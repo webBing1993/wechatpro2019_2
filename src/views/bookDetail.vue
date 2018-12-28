@@ -1,48 +1,47 @@
 <template>
   <div style="padding: 1rem">
     <br>
-    <h2>微信智慧酒店</h2>
-    <br>
-    <div class="detail">
-      <p>
-        <span>
-              <img src="../assets/logo1.jpg" height="56" width="56"/>
-          入住 <span>{{today}}</span>
-      </span>
-        <span>
-          离店 <span>{{tomorrow}}</span>
-        </span>
-        <span>共一晚</span>
-      </p>
-      <p>
-        <span>
-              <img src="../assets/logo2.jpg" height="56" width="56"/>
-          标准房
-      </span>
-        <span style="margin-left: 1rem">
-          双早
-        </span>
-      </p>
-    </div>
-    <br>
-    <div>
-      <p class="inputBox">
-        <span>预定人</span>
-        <span>{{$route.query.owner}}</span>
-      </p>
-      <p class="inputBox">
-        <span>电话</span>
-        <span>{{$route.query.phone}}</span>
-      </p>
+        <h2>微信智慧酒店</h2>
+        <br>
+        <div class="detail">
+          <p>
+            <span>
+                  <img src="../assets/logo1.jpg" height="56" width="56"/>
+              入住 <span>{{today}}</span>
+          </span>
+            <span>
+              离店 <span>{{tomorrow}}</span>
+            </span>
+            <span>共一晚</span>
+          </p>
+          <p>
+            <span>
+                  <img src="../assets/logo2.jpg" height="56" width="56"/>
+              标准房
+          </span>
+            <span style="margin-left: 1rem">
+              双早
+            </span>
+          </p>
+        </div>
+        <br>
+        <div>
+          <p class="inputBox">
+            <span>预定人</span>
+            <span>{{$route.query.owner}}</span>
+          </p>
+          <p class="inputBox">
+            <span>电话</span>
+            <span>{{$route.query.phone}}</span>
+          </p>
 
-    </div>
+        </div>
 
-    <div class="bottomCode">
-      <img src="../assets/qrimg.jpg" height="220" width="220"/>
-      <h4>长按二维码办理在线登记</h4>
+        <div class="bottomCode">
+          <img src="../assets/qrimg.jpg" height="220" width="220"/>
+          <h4>长按二维码办理在线登记</h4>
+        </div>
     </div>
-
-  </div>
 </template>
 <script>
 import {mapActions, mapState} from 'vuex'

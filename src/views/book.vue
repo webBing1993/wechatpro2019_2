@@ -1,48 +1,50 @@
 <template>
-  <div style="padding: 0 1rem;height: 100%;width:100%;position: fixed;top: 0;bottom: 0">
-    <br>
-    <h2>微信智慧酒店</h2>
-    <br>
-    <div class="detail">
-      <p>
-        <span>
-              <img src="../assets/logo1.jpg" height="56" width="56"/>
-          入住 <span>{{today}}</span>
-      </span>
-        <span>
-          离店 <span>{{tomorrow}}</span>
+  <div>
+    <div class="cot">
+      <br>
+      <h2>微信智慧酒店</h2>
+      <br>
+      <div class="detail">
+        <p>
+          <span>
+                <img src="../assets/logo1.jpg" height="56" width="56"/>
+            入住 <span>{{today}}</span>
         </span>
-        <span>共一晚</span>
-      </p>
-      <p>
-        <span>
-              <img src="../assets/logo2.jpg" height="56" width="56"/>
-          标准房
-      </span>
-        <span style="margin-left: 1rem">
-          双早
+          <span>
+            离店 <span>{{tomorrow}}</span>
+          </span>
+          <span>共一晚</span>
+        </p>
+        <p>
+          <span>
+                <img src="../assets/logo2.jpg" height="56" width="56"/>
+            标准房
         </span>
-      </p>
-    </div>
-    <br>
-    <div>
-      <p class="inputBox">
-        <span >房间</span>
-        <input type="text" placeholder="请输入房间" v-model="roomNo" disabled>
-      </p>
-      <p class="inputBox">
-        <span >姓名</span>
-        <input type="text" placeholder="请输入姓名" v-model="owner">
-      </p>
-      <p class="inputBox">
-        <span >手机号</span>
-        <input type="text" placeholder="请输入手机号" v-model="ownerTel">
-      </p>
-    </div>
+          <span style="margin-left: 1rem">
+            双早
+          </span>
+        </p>
+      </div>
+      <br>
+      <div>
+        <p class="inputBox">
+          <span >房间</span>
+          <input type="text" placeholder="请输入房间" v-model="roomNo" disabled>
+        </p>
+        <p class="inputBox">
+          <span >姓名</span>
+          <input type="text" placeholder="请输入姓名" v-model="owner" id="name1">
+        </p>
+        <p class="inputBox">
+          <span >手机号</span>
+          <input type="text" placeholder="请输入手机号" v-model="ownerTel" id="phone1">
+        </p>
+      </div>
 
-    <div class="bottomPayBtn">
-      <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥316</span></p>
-      <p class="pushBtn" @click="confirmOrder">提交订单</p>
+      <div class="bottomPayBtn">
+        <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥316</span></p>
+        <p class="pushBtn" @click="confirmOrder">提交订单</p>
+      </div>
     </div>
   </div>
 </template>
@@ -147,45 +149,23 @@ export default {
     ])
   },
   mounted () {
-      var brower = navigator.userAgent.toLowerCase();
-      console.log('brower:',brower)
-      var wx=false;
-      if(brower.match(/WindowsWechat/i)=="WindowsWechat"||brower.match(/MicroMessenger/i)=="MicroMessenger") {
-          wx=true
-      };
-      console.log('wx:',wx)
-      // var u = navigator.userAgent
-      // var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //这个判断 是不是ios手机
-      var flag
-      var myFunction
-      if(wx){ //既是微信浏览器 又是ios============（因为查到只有在微信环境下，ios手机上才会出现input失去焦点的时候页面被顶起）
-          document.body.addEventListener('focusin', () => {  //软键盘弹起事件
-              flag=true
-              clearTimeout(myFunction);
-          })
-          document.body.addEventListener('focusout', () => { //软键盘关闭事件
-              flag=false
-              if(!flag){
-                  myFunction = setTimeout(function(){
-                      window.scrollTo(0,0)//重点  =======当键盘收起的时候让页面回到原始位置
-                  },200);
-              }else{
-                  return
-              }
-          })
-      }
-      const h = document.body.scrollHeight  // 用onresize事件监控窗口或框架被调整大小，先把一开始的高度记录下来
-      window.onresize = function () { // 如果当前窗口小于一开始记录的窗口高度，那就让当前窗口等于一开始窗口的高度
-          console.log('h:',h)
-          if (document.body.scrollHeight < h) {
-              document.body.style.height = h
-          }
-      };
-      console.log('h:',h)
+      document.getElementById('name1').addEventListener('foucs',() => {
+          window.scrollTo(0,0)
+      })
+      document.getElementById('name1').addEventListener('blur',() => {
+          window.scrollTo(0,0)
+      })
   }
 }
 </script>
 <style lang="less" scoped>
+  .cot{
+    padding: 0 1rem;
+    height: 100%;
+    width:100%;
+    position: fixed;
+    bottom: 0
+  }
 .detail{
    width: 70%;
    p{
