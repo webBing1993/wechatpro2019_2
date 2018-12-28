@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 0 1rem;height: 100%;position: relative">
+  <div style="padding: 0 1rem;height: 100%;width:100%;position: fixed;top: 0;bottom: 0">
     <br>
     <h2>微信智慧酒店</h2>
     <br>
@@ -41,7 +41,7 @@
     </div>
 
     <div class="bottomPayBtn">
-      <p style="width: 60%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥316</span></p>
+      <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥316</span></p>
       <p class="pushBtn" @click="confirmOrder">提交订单</p>
     </div>
   </div>
@@ -167,7 +167,7 @@ export default {
               flag=false
               if(!flag){
                   myFunction = setTimeout(function(){
-                      window.scrollTo({top:0,left:0,behavior:"smooth"})//重点  =======当键盘收起的时候让页面回到原始位置
+                      window.scrollTo(0,0)//重点  =======当键盘收起的时候让页面回到原始位置
                   },200);
               }else{
                   return
@@ -231,7 +231,7 @@ export default {
   width: 98%;
   margin-left: -10px;
   height: 4rem;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   border-top:1px solid #eeeeee;
 }
