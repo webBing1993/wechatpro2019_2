@@ -33,11 +33,11 @@
         </p>
         <p class="inputBox">
           <span >姓名</span>
-          <input type="text" placeholder="请输入姓名" v-model="owner" id="name1" @focus="focusevent" @blur="blurevent">
+          <input type="text" placeholder="请输入姓名" v-model="owner" id="name1" @focus="focusevent" @blur="blurevent" >
         </p>
         <p class="inputBox">
           <span >手机号</span>
-          <input type="text" placeholder="请输入手机号" v-model="ownerTel" id="phone1" @focus="focusevent" @blur="blurevent">
+          <input placeholder="请输入手机号" v-model="ownerTel" id="phone1" @focus="focusevent" @blur="blurevent" type="number" pattern="[0-9]*" >
         </p>
       </div>
     </div>
