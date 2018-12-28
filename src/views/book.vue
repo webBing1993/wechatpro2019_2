@@ -212,6 +212,8 @@ export default {
   width: 98%;
   margin-left: -10px;
   height: 4rem;
+  left:0;
+  right:0;
   position: absolute;
   bottom: 0;
   border-top:1px solid #eeeeee;
