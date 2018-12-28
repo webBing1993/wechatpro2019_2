@@ -55,6 +55,7 @@ import router from '../router/index.js'
 import utils from '../tool/utils.js'
 import axios from 'axios'
 import { ToastPlugin } from 'vux'
+import $ from 'jquery'
 Vue.use(ToastPlugin)
 // import {Cell} from 'vux'
 const Today = new Date().getTime();
@@ -155,6 +156,8 @@ export default {
     ])
   },
   mounted () {
+      // var orderHight = document.body.clientHeight;
+      $('body').height($('body')[0].clientHeight);
   }
 }
 </script>
