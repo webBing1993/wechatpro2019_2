@@ -40,11 +40,10 @@
           <input type="text" placeholder="请输入手机号" v-model="ownerTel" id="phone1" @focus="focusevent" @blur="blurevent">
         </p>
       </div>
-
-      <div class="bottomPayBtn">
-        <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥316</span></p>
-        <p class="pushBtn" @click="confirmOrder">提交订单</p>
-      </div>
+    </div>
+    <div class="bottomPayBtn">
+      <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥316</span></p>
+      <p class="pushBtn" @click="confirmOrder">提交订单</p>
     </div>
   </div>
 </template>
@@ -164,7 +163,7 @@ export default {
     padding: 0 1rem;
     height: 100%;
     width:100%;
-    position: relative;
+    position: fixed;
     bottom: 0
   }
 .detail{
@@ -212,7 +211,7 @@ export default {
   width: 98%;
   margin-left: -10px;
   height: 4rem;
-  left:0;
+  /*left:0;*/
   right:0;
   position: absolute;
   bottom: 0;
