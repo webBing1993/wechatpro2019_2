@@ -122,7 +122,7 @@ export default {
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 25rem;
+    height: 20rem;
     img {
       padding: 10px;
     }
