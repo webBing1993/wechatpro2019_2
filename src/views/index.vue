@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%;height: 100%;position: fixed;bottom: 0">
+  <div style="width: 100%;min-height: 100%;position: fixed;bottom: 0;overflow: scroll">
     <div class="top">
       <img src="../assets/Group 11.png"/>
     </div>
@@ -94,6 +94,7 @@ export default {
 .bottom {
  position: relative;
   margin: auto;
+  margin-bottom: 1rem;
   width: 100%;
   img{
     display: inline-block;
