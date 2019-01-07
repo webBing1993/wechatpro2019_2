@@ -138,7 +138,7 @@ export default {
             .catch(function (response) {
                 _this.disableBtn=false;
               console.log(response)
-                this.$vux.loading.hide()
+                _this.$vux.loading.hide()
                 _this.$vux.toast.show({
                     text: '预定失败'
                 })
