@@ -126,12 +126,11 @@ export default {
           }
           axios.post('https://wqt.fortrun.cn/cloud/base-order/wqtorder/wechat/add', obj)
             .then(function (response) {
-              _this.disableBtn=false;
-              console.log(response)
                 _this.$vux.loading.hide()
                 _this.$vux.toast.show({
                     text: '预定成功'
                 });
+                _this.disableBtn=false;
               router.push({path: '/bookDetail', query: {owner: obj.owner, phone: obj.ownerTel}})
             })
             .catch(function (response) {
@@ -142,14 +141,6 @@ export default {
                     text: '预定失败'
                 })
             })
-          // router.push('/bookDetail')
-          // this.resource({
-          //   body: JSON.stringify(obj),
-          //   onSuccess: (body, headers) => {
-          //     this.showToast({text: '下单成功', time: 2000})
-          //     this.goto({path: 'bookDetail', query: {owner: this.owner, phone: this.ownerTel}})
-          //   }
-          // })
         }
       }
     },
