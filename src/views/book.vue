@@ -96,6 +96,7 @@ export default {
           console.log(document.body.scrollTop)
       },
     confirmOrder () {
+      let _this=this;
       if(!this.disableBtn){
           this.disableBtn=true;
         if (this.owner === '' || this.ownerTel === '') {
@@ -123,13 +124,11 @@ export default {
               }
             ]
           }
-          console.log(obj)
-             let _this=this;
           axios.post('https://wqt.fortrun.cn/cloud/base-order/wqtorder/wechat/add', obj)
             .then(function (response) {
-              this.disableBtn=false;
+              _this.disableBtn=false;
               console.log(response)
-                this.$vux.loading.hide()
+                _this.$vux.loading.hide()
                 _this.$vux.toast.show({
                     text: '预定成功'
                 });
