@@ -73,7 +73,6 @@ export default {
   },
   data () {
     return {
-        disableBtn:false,
       roomNo: '201',
       owner: '',
       ownerTel: '',
@@ -96,61 +95,51 @@ export default {
           console.log(document.body.scrollTop)
       },
     confirmOrder () {
-      if(!this.disableBtn)  {
-          this.disableBtn=true;
-        if (this.owner === '' || this.ownerTel === '') {
-          this.$vux.toast.show({
-            text: '请填写完整信息'
-          })
-        } else {
-          this.$vux.loading.show({
-              text: '正在提交...'
-          });
-          let obj = {
-            'hotelId':'7a64f7504bab436590528d8b5b809e3a', // 酒店id
-            'inTime': Today, // 入住时间
-            'outTime': Tomorrow, // 离店时间
-            'totalfee': '31600', // 总费用
-            'owner': this.owner,
-            'ownerTel': this.ownerTel,
-            'subOrders': [
-              {
-                'roomTypeName': '标准间', // 房型名称
-                'roomPrice': '31600', // 单价
-                'breakfast': '2', // 每个房间早餐份数,
-                roomNo: this.roomNo
-              }
-            ]
-          }
-          console.log(obj)
-             let _this=this;
-          axios.post('https://wqt.fortrun.cn/cloud/base-order/wqtorder/wechat/add', obj)
-            .then(function (response) {
-                _this.disableBtn=false;
-              console.log(response)
-                _this.$vux.loading.hide()
-                _this.$vux.toast.show({
-                    text: '预定成功'
-                });
-              router.push({path: '/bookDetail', query: {owner: obj.owner, phone: obj.ownerTel}})
-            })
-            .catch(function (response) {
-                _this.disableBtn=false;
-              console.log(response)
-                _this.$vux.loading.hide()
-                _this.$vux.toast.show({
-                    text: '预定失败'
-                })
-            })
-          // router.push('/bookDetail')
-          // this.resource({
-          //   body: JSON.stringify(obj),
-          //   onSuccess: (body, headers) => {
-          //     this.showToast({text: '下单成功', time: 2000})
-          //     this.goto({path: 'bookDetail', query: {owner: this.owner, phone: this.ownerTel}})
-          //   }
-          // })
+      if (this.owner === '' || this.ownerTel === '') {
+        this.$vux.toast.show({
+          text: '请填写完整信息'
+        })
+      } else {
+        let obj = {
+          'hotelId':'7a64f7504bab436590528d8b5b809e3a', // 酒店id
+          'inTime': Today, // 入住时间
+          'outTime': Tomorrow, // 离店时间
+          'totalfee': '31600', // 总费用
+          'owner': this.owner,
+          'ownerTel': this.ownerTel,
+          'subOrders': [
+            {
+              'roomTypeName': '标准间', // 房型名称
+              'roomPrice': '31600', // 单价
+              'breakfast': '120', // 每个房间早餐份数,
+              roomNo: this.roomNo
+            }
+          ]
         }
+        console.log(obj)
+           let _this=this;
+        axios.post('https://wqt.fortrun.cn/cloud/base-order/wqtorder/wechat/add', obj)
+          .then(function (response) {
+            console.log(response)
+              _this.$vux.toast.show({
+                  text: '预定成功'
+              })
+            router.push({path: '/bookDetail', query: {owner: obj.owner, phone: obj.ownerTel}})
+          })
+          .catch(function (response) {
+            console.log(response)
+              _this.$vux.toast.show({
+                  text: '预定失败'
+              })
+          })
+        // router.push('/bookDetail')
+        // this.resource({
+        //   body: JSON.stringify(obj),
+        //   onSuccess: (body, headers) => {
+        //     this.showToast({text: '下单成功', time: 2000})
+        //     this.goto({path: 'bookDetail', query: {owner: this.owner, phone: this.ownerTel}})
+        //   }
+        // })
       }
     },
     showToast (ctx, param) {
