@@ -74,7 +74,7 @@ export default {
   data () {
     return {
         disableBtn:false,
-      roomNo: '201',
+      roomNo: '202',
       owner: '',
       ownerTel: '',
       today: utils.datetimeparse(Today, 'MM／DD'),
@@ -109,7 +109,7 @@ export default {
               text: '正在提交...'
           });
           let obj = {
-            'hotelId':'7a64f7504bab436590528d8b5b809e3a', // 酒店id
+            'hotelId':'885e423c01684a78bd5bb6312ca7e247', // 缦客空间酒店id
             'inTime': Today, // 入住时间
             'outTime': Tomorrow, // 离店时间
             'totalfee': '31600', // 总费用
