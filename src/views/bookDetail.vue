@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 1rem;  height: 100%;width:100%;position: fixed;bottom: 0" >
     <br>
-        <h2>微信智慧酒店</h2>
+        <h2>缦客智住酒店</h2>
         <br>
         <div class="detail">
           <p>
