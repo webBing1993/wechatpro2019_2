@@ -2,7 +2,7 @@
   <div>
     <div class="cot">
       <br>
-      <h2>微信智慧酒店</h2>
+      <h2>缦客智住酒店</h2>
       <br>
       <div class="detail">
         <p>
@@ -74,7 +74,7 @@ export default {
   data () {
     return {
         disableBtn:false,
-      roomNo: '202',
+      roomNo: '888',
       owner: '',
       ownerTel: '',
       today: utils.datetimeparse(Today, 'MM／DD'),

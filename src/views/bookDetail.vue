@@ -2,7 +2,7 @@
   <div style="height: 100%;width:100%;position: fixed;bottom: 0" >
     <br>
     <div style="padding-left: 1rem;">
-        <h2>微信智慧酒店</h2>
+        <h2>缦客智住酒店</h2>
         <br>
         <div class="detail">
           <p>
