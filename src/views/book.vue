@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="bottomPayBtn">
-      <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥316</span></p>
+      <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥666</span></p>
       <p class="pushBtn" @click="confirmOrder">提交订单</p>
     </div>
   </div>
