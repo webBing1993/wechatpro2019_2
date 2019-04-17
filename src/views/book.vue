@@ -42,7 +42,7 @@
       </div>
     </div>
     <div class="bottomPayBtn">
-      <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥316</span></p>
+      <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥666</span></p>
       <p class="pushBtn" @click="confirmOrder">提交订单</p>
     </div>
   </div>
@@ -98,13 +98,13 @@ export default {
           'hotelId': '885e423c01684a78bd5bb6312ca7e247', // 缦客空间酒店id
           'inTime': Today, // 入住时间
           'outTime': Tomorrow, // 离店时间
-          'totalfee': '31600', // 总费用
+          'totalfee': '66600', // 总费用
           'owner': this.owner,
           'ownerTel': this.ownerTel,
           'subOrders': [
             {
               'roomTypeName': '标准间', // 房型名称
-              'roomPrice': '31600', // 单价
+              'roomPrice': '66600', // 单价
               'breakfast': '120', // 每个房间早餐份数,
               roomNo: this.roomNo
             }
