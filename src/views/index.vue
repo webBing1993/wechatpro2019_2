@@ -62,6 +62,8 @@ export default {
     ])
   },
   mounted () {
+      console.log(this.$route.query.room);
+      sessionStorage.setItem('roomNo',this.$route.query.room);
       window.scrollTo(0,0);
   }
 }

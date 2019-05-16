@@ -67,7 +67,7 @@ export default {
   },
   data () {
     return {
-      roomNo: '888',
+      roomNo: sessionStorage.getItem('roomNo') != 'undefined' ? sessionStorage.getItem('roomNo') : '888',
       owner: '',
       ownerTel: '',
       today: utils.datetimeparse(Today, 'MM／DD'),
