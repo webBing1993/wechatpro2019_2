@@ -54,7 +54,13 @@ import {mapActions, mapState} from 'vuex'
 import router from '../router/index.js'
 import utils from '../tool/utils.js'
 import axios from 'axios'
-import { ToastPlugin } from 'vux'
+
+// 或者umd方式
+// 引入构建的js文件
+
+import { ToastPlugin,LoadingPlugin } from 'vux'
+Vue.use(ToastPlugin)
+Vue.use(LoadingPlugin)
 import $ from 'jquery'
 Vue.use(ToastPlugin)
 // import {Cell} from 'vux'
@@ -67,6 +73,7 @@ export default {
   },
   data () {
     return {
+      disableBtn:false,
       roomNo: sessionStorage.getItem('roomNo') != 'undefined' ? sessionStorage.getItem('roomNo') : '888',
       owner: '',
       ownerTel: '',
@@ -89,51 +96,52 @@ export default {
           console.log(document.body.scrollTop)
       },
     confirmOrder () {
-      if (this.owner === '' || this.ownerTel === '') {
-        this.$vux.toast.show({
-          text: '请填写完整信息'
-        })
-      } else {
-        let obj = {
-          'hotelId': '885e423c01684a78bd5bb6312ca7e247', // 缦客空间酒店id
-          'inTime': Today, // 入住时间
-          'outTime': Tomorrow, // 离店时间
-          'totalfee': '66600', // 总费用
-          'owner': this.owner,
-          'ownerTel': this.ownerTel,
-          'subOrders': [
-            {
-              'roomTypeName': '标准间', // 房型名称
-              'roomPrice': '66600', // 单价
-              'breakfast': '120', // 每个房间早餐份数,
-              roomNo: this.roomNo
-            }
-          ]
+      let _this=this;
+      if(!this.disableBtn){
+          this.disableBtn=true;
+        if (this.owner === '' || this.ownerTel === '') {
+          this.$vux.toast.show({
+            text: '请填写完整信息'
+          })
+          this.disableBtn=false;
+        } else {
+          this.$vux.loading.show({
+              text: '正在提交...'
+          });
+          let obj = {
+            'hotelId':'885e423c01684a78bd5bb6312ca7e247', // 缦客空间酒店id
+            'inTime': Today, // 入住时间
+            'outTime': Tomorrow, // 离店时间
+            'totalfee': '66600', // 总费用
+            'owner': this.owner,
+            'ownerTel': this.ownerTel,
+            'subOrders': [
+              {
+                'roomTypeName': '标准间', // 房型名称
+                'roomPrice': '66600', // 单价
+                'breakfast': '100', // 每个房间早餐份数,
+                roomNo: this.roomNo
+              }
+            ]
+          }
+          axios.post('https://wqt.fortrun.cn/cloud3/base-order/wqtorder/wechat/add', obj)
+            .then(function (response) {
+                _this.$vux.loading.hide()
+                _this.$vux.toast.show({
+                    text: '预定成功'
+                });
+                _this.disableBtn=false;
+              router.push({path: '/bookDetail', query: {owner: obj.owner, phone: obj.ownerTel}})
+            })
+            .catch(function (response) {
+                _this.disableBtn=false;
+              console.log(response)
+                _this.$vux.loading.hide()
+                _this.$vux.toast.show({
+                    text: '预定失败'
+                })
+            })
         }
-        console.log(obj)
-           let _this=this;
-        axios.post('http://qa.fortrun.cn:19761/wqtorder/wechat/add', obj)
-          .then(function (response) {
-            console.log(response)
-              _this.$vux.toast.show({
-                  text: '预定成功'
-              })
-            router.push({path: '/bookDetail', query: {owner: obj.owner, phone: obj.ownerTel}})
-          })
-          .catch(function (response) {
-            console.log(response)
-              _this.$vux.toast.show({
-                  text: '预定失败'
-              })
-          })
-        // router.push('/bookDetail')
-        // this.resource({
-        //   body: JSON.stringify(obj),
-        //   onSuccess: (body, headers) => {
-        //     this.showToast({text: '下单成功', time: 2000})
-        //     this.goto({path: 'bookDetail', query: {owner: this.owner, phone: this.ownerTel}})
-        //   }
-        // })
       }
     },
     showToast (ctx, param) {
