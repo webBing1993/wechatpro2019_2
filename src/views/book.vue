@@ -109,7 +109,7 @@ export default {
               text: '正在提交...'
           });
           let obj = {
-            'hotelId':'885e423c01684a78bd5bb6312ca7e247', // 缦客空间酒店id
+            'hotelId': sessionStorage.getItem('hotelId') != 'undefined' ? sessionStorage.getItem('hotelId') : '885e423c01684a78bd5bb6312ca7e247', // 缦客空间酒店id
             'inTime': Today, // 入住时间
             'outTime': Tomorrow, // 离店时间
             'totalfee': '66600', // 总费用

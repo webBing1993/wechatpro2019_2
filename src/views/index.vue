@@ -63,7 +63,9 @@ export default {
   },
   mounted () {
       console.log(this.$route.query.room);
+      console.log(this.$route.query.hotelId);
       sessionStorage.setItem('roomNo',this.$route.query.room);
+      sessionStorage.setItem('hotelId',this.$route.query.hotelId);
       window.scrollTo(0,0);
   }
 }
