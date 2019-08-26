@@ -41,7 +41,7 @@
         </p>
       </div>
     </div>
-    <div class="bottomPayBtn">
+    <div :class="isandroid ? 'bottomPayBtn' : 'bottomPayBtn bottomPayBtn_'">
       <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥666</span></p>
       <p class="pushBtn" @click="confirmOrder">提交订单</p>
     </div>
@@ -78,7 +78,8 @@ export default {
       owner: '',
       ownerTel: '',
       today: utils.datetimeparse(Today, 'MM／DD'),
-      tomorrow: utils.datetimeparse(Tomorrow, 'MM／DD')
+      tomorrow: utils.datetimeparse(Tomorrow, 'MM／DD'),
+      isandroid: false,  // 判断是否是Android机还是iOS机
     }
   },
   methods: {
@@ -165,7 +166,14 @@ export default {
   },
   mounted () {
       // var orderHight = document.body.clientHeight;
-      $('body').height($('body')[0].clientHeight);
+    let u = navigator.userAgent;
+    let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+    if (isAndroid) {
+      this.isandroid = true;
+    }else {
+      this.isandroid = false;
+    }
+    $('body').height($('body')[0].clientHeight);
   }
 }
 </script>
@@ -173,9 +181,9 @@ export default {
   .cot{
     padding: 0 1rem;
     height: 100%;
-    width:100%;
-    position: fixed;
-    bottom: 0
+    width: calc(100vw - 2rem);
+    /*position: fixed;*/
+    /*bottom: 0*/
   }
 .detail{
    width: 70%;
@@ -228,6 +236,9 @@ export default {
   bottom: 0;
   border-top:1px solid #eeeeee;
   z-index: 5;
+}
+.bottomPayBtn_ {
+  bottom: 3.2rem;
 }
   .pushBtn{
     width: 8rem;
