@@ -179,8 +179,8 @@ export default {
 </script>
 <style lang="less" scoped>
   .cot{
-    padding: 0 1rem;
-    height: 100%;
+    padding: 0 1rem 4rem;
+    min-height: calc(100vh - 4rem);
     width: calc(100vw - 2rem);
     /*position: fixed;*/
     /*bottom: 0*/
@@ -232,13 +232,13 @@ export default {
   height: 4rem;
   /*left:0;*/
   right:0;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   border-top:1px solid #eeeeee;
   z-index: 5;
 }
 .bottomPayBtn_ {
-  bottom: 3.2rem;
+
 }
   .pushBtn{
     width: 8rem;
