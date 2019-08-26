@@ -227,6 +227,7 @@ export default {
   position: absolute;
   bottom: 0;
   border-top:1px solid #eeeeee;
+  z-index: 5;
 }
   .pushBtn{
     width: 8rem;
