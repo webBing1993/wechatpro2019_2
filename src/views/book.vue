@@ -120,7 +120,7 @@ export default {
               {
                 'roomTypeName': '标准间', // 房型名称
                 'roomPrice': '66600', // 单价
-                'breakfast': '100', // 每个房间早餐份数,
+                'breakfast': '0', // 每个房间早餐份数,
                 roomNo: this.roomNo
               }
             ]
