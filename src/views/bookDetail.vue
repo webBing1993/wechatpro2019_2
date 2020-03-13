@@ -18,7 +18,7 @@
           <p>
             <span>
                   <img src="../assets/logo2.jpg" height="56" width="56"/>
-              标准房
+              行政双床
           </span>
             <span style="margin-left: 1rem">
               双早
