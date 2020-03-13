@@ -26,19 +26,19 @@ export default new Router({
       path: '/book',
       component: Book,
       meta: {
-        title: '缦客智住酒店'
+        title: '控客智慧酒店'
       }
     }, {
       path: '/bookDetail',
       component: BookDetail,
       meta: {
-        title: '缦客智住酒店'
+        title: '控客智慧酒店'
       }
     }, {
       path: '/*',
       component: Index,
       meta: {
-        title: '缦客智住酒店'
+        title: '控客智慧酒店'
       }
     }
   ]

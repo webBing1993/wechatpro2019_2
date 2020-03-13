@@ -2,7 +2,7 @@
   <div>
     <div class="cot">
       <br>
-      <h2>缦客智住酒店</h2>
+      <h2>控客智慧酒店</h2>
       <br>
       <div class="detail">
         <p>
