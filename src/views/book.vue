@@ -125,7 +125,7 @@ export default {
               }
             ]
           }
-          axios.post('https://wqt.fortrun.cn/cloud3/base-order/wqtorder/wechat/add', obj)
+          axios.post('https://wqt.fortrun.cn/cloud/base-order/wqtorder/wechat/add', obj)
             .then(function (response) {
                 _this.$vux.loading.hide()
                 _this.$vux.toast.show({
