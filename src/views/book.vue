@@ -118,7 +118,7 @@ export default {
             'ownerTel': this.ownerTel,
             'subOrders': [
               {
-                'roomTypeName': '标准间', // 房型名称
+                'roomTypeName': '行政双床', // 房型名称
                 'roomPrice': '66600', // 单价
                 'breakfast': '100', // 每个房间早餐份数,
                 roomNo: this.roomNo
