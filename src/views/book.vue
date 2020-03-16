@@ -113,13 +113,13 @@ export default {
             'hotelId': sessionStorage.getItem('hotelId') != 'undefined' ? sessionStorage.getItem('hotelId') : '885e423c01684a78bd5bb6312ca7e247', // 缦客空间酒店id
             'inTime': Today, // 入住时间
             'outTime': Tomorrow, // 离店时间
-            'totalfee': '66600', // 总费用
+            'totalfee': '1', // 总费用
             'owner': this.owner,
             'ownerTel': this.ownerTel,
             'subOrders': [
               {
                 'roomTypeName': '行政双床', // 房型名称
-                'roomPrice': '66600', // 单价
+                'roomPrice': '1', // 单价
                 'breakfast': '100', // 每个房间早餐份数,
                 roomNo: this.roomNo
               }
