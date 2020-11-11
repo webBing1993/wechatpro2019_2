@@ -157,7 +157,7 @@ export default {
         }else {
           let _this = this;
           let data = {
-            'hotelId': 'c1f98e947d45428f9a146ba084e0a5b5',
+            'hotelId': 'de733aa41d12423ab6baf97388036998',
             'inTime': new Date(new Date(this.orderList.begin + ' ' + this.datetimeparse(new Date().getTime(), 'hh:mm:ss'))).getTime(), // 入住时间
             'outTime': new Date(new Date(this.orderList.begin).toLocaleDateString()).getTime() + 3*24*60*60*1000/2, // 离店时间
             'totalfee': '1', // 总费用
@@ -176,7 +176,7 @@ export default {
               arr.push(obj)
           }
           data.subOrders = arr;
-          axios.post('http://qa.fortrun.cn:19761/wqtorder/wechat/add', data)
+          axios.post('http://111.231.64.95:8762/base-order/wqtorder/wechat/add', data)
             .then(function (response) {
                 console.log('response', response.data);
                 if (response.data.errcode == 0) {
