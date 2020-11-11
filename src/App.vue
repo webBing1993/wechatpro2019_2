@@ -29,13 +29,14 @@ export default {
 <!--</style>-->
 <style lang="less">
 @import "./assets/styles/index.less";
-#app{
-  background-color: #FFFFFF;
-}
-html,body{
-  position:relative;
-  height:100%;
-  min-height:100%;
-}
+  html,body{
+    position:relative;
+    height:100%;
+    min-height:100%;
+  }
+
+  body {
+    background-color: #F7F7F7;
+  }
 
 </style>

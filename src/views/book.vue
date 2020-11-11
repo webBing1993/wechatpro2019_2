@@ -1,49 +1,61 @@
 <template>
   <div>
-    <div class="cot">
-      <br>
-      <h2>控客智慧酒店</h2>
-      <br>
-      <div class="detail">
-        <p>
-          <span>
-                <img src="../assets/logo1.jpg" height="56" width="56"/>
-            入住 <span>{{today}}</span>
-        </span>
-          <span>
-            离店 <span>{{tomorrow}}</span>
-          </span>
-          <span>共一晚</span>
-        </p>
-        <p>
-          <span>
-                <img src="../assets/logo2.jpg" height="56" width="56"/>
-            行政双床
-        </span>
-          <span style="margin-left: 1rem">
-            双早
-          </span>
-        </p>
+    <div class="book">
+      <div class="header"></div>
+      <div class="houseInfo">
+        <div class="info">
+          <div class="list">
+            <div class="name">预订房型</div>
+            <div class="value">智慧大床房</div>
+          </div>
+          <div class="list">
+            <div class="name">入离时间</div>
+            <div class="value">{{ orderList.inDate.split('/')[0] + '月' + orderList.inDate.split('/')[1] + '日' + ' - ' +  orderList.outDate.split('/')[0] + '月' + orderList.outDate.split('/')[1] + '日&nbsp;&nbsp;' + '共' + dayNumber + '晚' }}</div>
+          </div>
+        </div>
+        <div class="orderInfo">
+          <el-form ref="form" :model="changeItem" label-width="100px">
+            <el-form-item label="预订类型">
+              <el-radio-group v-model="changeItem.type" @change="radioChange">
+                <el-radio :label=1>散客</el-radio>
+                <el-radio :label=0>团队</el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item label="房间数">
+              <div class="roomCount">
+                <div v-if="changeItem.type == 1">
+                  {{ changeItem.roomCount }}间
+                    <span>每间最多住2人</span>
+                </div>
+                <div id="trigger" v-else>
+                  <div class="triggerContent">
+                    <div>
+                      {{ changeItem.roomCount }}间
+                    <span>每间最多住2人</span>
+                    </div>
+                    <img src="../assets/ic_unfold_right_grey.png" alt="">
+                  </div>
+                </div>
+              </div>
+            </el-form-item>
+            <el-form-item label="预订人">
+              <el-input v-model="changeItem.owner" placeholder="请输入预订人姓名"></el-input>
+            </el-form-item>
+            <el-form-item label="手机号">
+              <el-input v-model="changeItem.ownerTel" oninput="if(value.length > 11)value=value.slice(0, 11)" type="number" placeholder="请输入预订人手机号"></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
       </div>
-      <br>
-      <div>
-        <p class="inputBox">
-          <span >房间</span>
-          <input type="text" placeholder="请输入房间" v-model="roomNo" disabled >
-        </p>
-        <p class="inputBox">
-          <span >姓名</span>
-          <input type="text" placeholder="请输入姓名" v-model="owner" id="name1" @focus="focusevent" @blur="blurevent" >
-        </p>
-        <p class="inputBox">
-          <span >手机号</span>
-          <input placeholder="请输入手机号" v-model="ownerTel" id="phone1" @focus="focusevent" @blur="blurevent" type="number" pattern="[0-9]*" >
-        </p>
+      <div class="footer">   <!--v-if="footerShow"-->
+        <div class="total">
+          <span>总计 <span>¥</span></span>
+          <span class="price">0.01</span>
+        </div>
+        <div class="btns">
+          <button @click="payBtn" class="payBtn">到店付</button>
+        </div>
       </div>
-    </div>
-    <div :class="isandroid ? 'bottomPayBtn' : 'bottomPayBtn bottomPayBtn_'">
-      <p style="width: 40%">应付款：<span style="color: #4bad99;font-size: 20px;font-weight: 500">¥666</span></p>
-      <p class="pushBtn" @click="confirmOrder">提交订单</p>
     </div>
   </div>
 </template>
@@ -54,16 +66,12 @@ import {mapActions, mapState} from 'vuex'
 import router from '../router/index.js'
 import utils from '../tool/utils.js'
 import axios from 'axios'
-
-// 或者umd方式
-// 引入构建的js文件
+import MobileSelect from 'mobile-select'
 
 import { ToastPlugin,LoadingPlugin } from 'vux'
 Vue.use(ToastPlugin)
 Vue.use(LoadingPlugin)
-import $ from 'jquery'
 Vue.use(ToastPlugin)
-// import {Cell} from 'vux'
 const Today = new Date().getTime();
 const Tomorrow = Today + 24 * 3600 * 1000;
 
@@ -73,22 +81,65 @@ export default {
   },
   data () {
     return {
-      disableBtn:false,
-      roomNo: sessionStorage.getItem('roomNo') != 'undefined' ? sessionStorage.getItem('roomNo') : '888',
-      owner: '',
-      ownerTel: '',
-      today: utils.datetimeparse(Today, 'MM／DD'),
-      tomorrow: utils.datetimeparse(Tomorrow, 'MM／DD'),
-      isandroid: false,  // 判断是否是Android机还是iOS机
+      orderList: {
+        begin: '',
+        end: '',
+        typehood: 1,
+        today: '',
+        inDateType: '',
+        outDateType: '',
+        inDate:'',
+        outDate:'',
+      },
+      dayNumber: '',
+      changeItem: {
+        type: 1,
+        roomCount: 1,
+        owner: sessionStorage.getItem('owner') ? sessionStorage.getItem('owner') : '',
+        ownerTel: sessionStorage.getItem('ownerTel') ? parseFloat(sessionStorage.getItem('ownerTel')) : '',
+      },
+      footerShow: true
     }
   },
   methods: {
     ...mapActions([
       'goto',
-      'book',
       'resource',
-      'showToast'
     ]),
+
+      radioChange(val) {
+        let that = this;
+        if (val == 0) {
+          new MobileSelect({
+            trigger: "#trigger",
+            title: "房间数选择",
+            wheels: [
+              {data: ["1","2","3","4","5"]}
+            ],
+            callback:function(indexArr, data){
+              console.log(data,indexArr);
+              that.changeItem.roomCount = data[0];
+              that.htmlVal(data, require('../assets/ic_unfold_right_grey.png'));
+            }
+          })
+        }else {
+          that.changeItem.roomCount = 1;
+        }
+      },
+
+      htmlVal(val, src) {
+        let MyComponent = Vue.extend({
+          template: '<div><div class="triggerContent" style="display: flex;align-items: center;justify-content: space-between;font-size: 14px;color: #333333;font-weight: bold;"><div>'+ val[0] +'间<span style="font-size: 12px;color: #999999;margin-left: 8px;font-weight: normal;">每间最多住2人</span></div><img src="'+ src +'" alt="" style="width: 1.1rem;height: 1.1rem;display: inline-flex"></div></div></div>',
+        });
+        let component = new MyComponent().$mount();
+        let dom = document.querySelector("#trigger");
+        console.log(dom);
+        while (dom.hasChildNodes()) {
+          dom.removeChild(dom.firstChild);
+        }
+        dom.appendChild(component.$el);
+      },
+
       focusevent(){
 
       },
@@ -96,65 +147,56 @@ export default {
           window.scrollTo(0,0);
           console.log(document.body.scrollTop)
       },
-    confirmOrder () {
-      let _this=this;
-      if(!this.disableBtn){
-          this.disableBtn=true;
-        if (this.owner === '' || this.ownerTel === '') {
-          this.$vux.toast.show({
-            text: '请填写完整信息'
-          })
-          this.disableBtn=false;
-        } else {
-          this.$vux.loading.show({
-              text: '正在提交...'
-          });
-          let obj = {
-            'hotelId': sessionStorage.getItem('hotelId') != 'undefined' ? sessionStorage.getItem('hotelId') : '885e423c01684a78bd5bb6312ca7e247', // 缦客空间酒店id
-            'inTime': Today, // 入住时间
-            'outTime': Tomorrow, // 离店时间
+      payBtn() {
+        if (this.changeItem.owner === '' || this.changeItem.ownerTel === '') {
+          this.$vux.toast.text('请填写完整信息', 'middle');
+          return
+        }else if (this.changeItem.ownerTel.toString().length != 11) {
+          this.$vux.toast.text('请填写正确的手机号', 'middle');
+          return
+        }else {
+          let _this = this;
+          let data = {
+            'hotelId': 'c1f98e947d45428f9a146ba084e0a5b5',
+            'inTime': new Date(new Date(this.orderList.begin + ' ' + this.datetimeparse(new Date().getTime(), 'hh:mm:ss'))).getTime(), // 入住时间
+            'outTime': new Date(new Date(this.orderList.begin).toLocaleDateString()).getTime() + 3*24*60*60*1000/2, // 离店时间
             'totalfee': '1', // 总费用
-            'owner': this.owner,
-            'ownerTel': this.ownerTel,
-            'subOrders': [
-              {
-                'roomTypeName': '行政双床', // 房型名称
+            'owner': this.changeItem.owner,
+            'ownerTel': this.changeItem.ownerTel,
+            'type': this.changeItem.type,
+          };
+          let arr = [];
+          for (var i = 0; i < this.changeItem.roomCount; i++) {
+              let obj = {
+                'roomTypeName': '行政大床', // 房型名称
                 'roomPrice': '1', // 单价
-                'breakfast': '100', // 每个房间早餐份数,
-                roomNo: this.roomNo
-              }
-            ]
+                'breakfast': '0', // 每个房间早餐份数,
+                'roomNo': ''
+              };
+              arr.push(obj)
           }
-          axios.post('https://wqt.fortrun.cn/cloud/base-order/wqtorder/wechat/add', obj)
+          data.subOrders = arr;
+          axios.post('http://qa.fortrun.cn:19761/wqtorder/wechat/add', data)
             .then(function (response) {
-                _this.$vux.loading.hide()
-                _this.$vux.toast.show({
-                    text: '预定成功'
-                });
-                _this.disableBtn=false;
-              router.push({path: '/bookDetail', query: {owner: obj.owner, phone: obj.ownerTel}})
+                console.log('response', response.data);
+                if (response.data.errcode == 0) {
+                  sessionStorage.setItem('owner', _this.changeItem.owner);
+                  sessionStorage.setItem('ownerTel', _this.changeItem.ownerTel);
+                  _this.$vux.loading.hide();
+                  _this.$vux.toast.text('预订成功', 'middle');
+                  router.push({path: '/bookDetail', query: {roomCount: _this.changeItem.roomCount}})
+                }else {
+                  _this.$vux.loading.hide();
+                  _this.$vux.toast.text(response.data.errmsg, 'middle');
+                }
             })
             .catch(function (response) {
-                _this.disableBtn=false;
-              console.log(response)
-                _this.$vux.loading.hide()
-                _this.$vux.toast.show({
-                    text: '预定失败'
-                })
+              console.log(response);
+              _this.$vux.loading.hide();
+              _this.$vux.toast.text(response.data.errmsg, 'middle');
             })
         }
-      }
-    },
-    showToast (ctx, param) {
-      // console.log('param:',param)
-      ctx.commit('TOAST',
-        {
-          show: true,
-          text: param.text ? param.text : '操作成功',
-          time: param.time ? param.time : 800
-        }
-      )
-    }
+      },
   },
   watch: {
 
@@ -165,89 +207,188 @@ export default {
     ])
   },
   mounted () {
-      // var orderHight = document.body.clientHeight;
-    let u = navigator.userAgent;
-    let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
-    if (isAndroid) {
-      this.isandroid = true;
-    }else {
-      this.isandroid = false;
+    this.orderList = JSON.parse(sessionStorage.getItem('bookItem'));
+    this.dayNumber = sessionStorage.getItem('dayNumber') ? sessionStorage.getItem('dayNumber') : 1;
+    console.log('orderList', this.orderList);
+    let that = this;
+    let screenHeight = document.body.offsetHeight;
+    window.onresize = function () {
+      let nowHeight = document.body.offsetHeight;
+      if (nowHeight < screenHeight) {
+        that.footerShow = false;
+      } else {
+        that.footerShow = true;
+      }
     }
-    $('body').height($('body')[0].clientHeight);
   }
 }
 </script>
 <style lang="less" scoped>
-  .cot{
-    padding: 0 1rem 4rem;
-    min-height: calc(100vh - 4rem);
-    width: calc(100vw - 2rem);
-    /*position: fixed;*/
-    /*bottom: 0*/
-  }
-.detail{
-   width: 70%;
-   p{
-     color: #a9a9a9;
-     display: flex;
-     justify-content: space-between;
-     &:nth-child(2){
-       justify-content:left;
-     }
-      img{
-        display: inline-block;
-        width: 1rem;
-        height: 1rem;
-        margin-right: 10px;
+
+  .book {
+    .header {
+      position: fixed;
+      left: 0;
+      top: 0;
+      background-image: linear-gradient(0deg, #F7F7F7 27%, #6B7AFF 87%);
+      width: 100vw;
+      height: 26.8rem;
+      z-index: -1;
+    }
+    .houseInfo {
+      padding: 1.9rem 1.2rem;
+      .info {
+        background: #FFFFFF;
+        box-shadow: 0 1px 5px 0 rgba(0,0,0,0.05);
+        border-radius: 6px;
+        padding: 0.9rem 0;
+        .list {
+          padding: 3px 0.9rem;
+          line-height: 40px;
+          height: 40px;
+          position: relative;
+          .name {
+            font-size: 14px;
+            color: #A8A8A8;
+          }
+          .value {
+            font-size: 16px;
+            color: #333333;
+            font-weight: bold;
+            position: absolute;
+            left: 100px;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+        }
       }
-
+      .orderInfo {
+        margin-top: 14px;
+        background: #FFFFFF;
+        box-shadow: 0 1px 5px 0 rgba(0,0,0,0.05);
+        border-radius: 6px;
+        padding: 3px 0;
+        /deep/ .el-form-item__label {
+          text-align: left;
+          font-size: 14px;
+          color: #A8A8A8;
+          padding-left: 12px;
+        }
+        /deep/ .el-radio {
+          -webkit-tap-highlight-color: rgba(0,0,0,0);
+        }
+        /deep/ .el-form-item {
+          margin-bottom: 0;
+          .el-form-item__content {
+            padding-right: 12px;
+            font-size: 14px;
+            color: #333333;
+            font-weight: bold;
+          }
+        }
+        /deep/ .el-input__inner {
+          border: none;
+          outline: none;
+          padding: 0;
+          font-size: 14px;
+          color: #333333;
+          font-weight: bold;
+          -webkit-tap-highlight-color: rgba(0,0,0,0);
+        }
+        /deep/ .el-input__inner:-moz-placeholder {
+          font-weight: normal !important;
+        }
+        /deep/ .el-input__inner:-ms-input-placeholder {
+          font-weight: normal !important;
+        }
+        /deep/ .el-input__inner::-moz-placeholder {
+          font-weight: normal !important;
+        }
+        /deep/ .el-input__inner::-webkit-input-placeholder {
+          font-weight: normal !important;
+        }
+        /deep/ .is-checked {
+          color: #333333 !important;
+        }
+        /deep/ .el-radio__label {
+          font-weight: bold;
+        }
+        .roomCount {
+          font-size: 14px;
+          color: #333333;
+          #trigger {
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            .triggerContent {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              font-size: 14px;
+              color: #333333;
+              font-weight: bold;
+              span {
+                font-size: 12px;
+                color: #999999;
+                margin-left: 8px;
+                font-weight: normal;
+              }
+              img {
+                width: 1.1rem;
+                height: 1.1rem;
+              }
+            }
+          }
+          span {
+            font-size: 12px;
+            color: #999999;
+            margin-left: 8px;
+            font-weight: normal;
+          }
+        }
+      }
     }
-}
-.inputBox{
-    height: 3.5rem;
-    line-height: 3.5rem;
-    border-bottom: 1px solid #f3f3f3;
-  span{
-    font-size: 15px;
-    font-weight: 400;
-    margin-right: 3rem;
-    &:first-child{
-      display: inline-block;
-      width: 4rem;
+    .footer {
+      /*position: fixed;*/
+      /*bottom: 0;*/
+      /*left: 0;*/
+      /*width: calc(100vw - 2.4rem);*/
+      margin-top: calc(100vh - 350px - 6rem);
+      padding: 0.8rem 1.2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #FFFFFF;
+      box-shadow: 0 0 6px 0 rgba(0,0,0,0.07);
+      .total {
+        span {
+          font-size: 10px;
+          color: #888888;
+          span {
+            color: #FF5870;
+          }
+        }
+        .price {
+          font-family: Georgia;
+          font-size: 20px;
+          letter-spacing: 0.62px;
+          font-weight: bold;
+          color: #FF5870;
+        }
+      }
+      .btns {
+        .payBtn {
+          background-image: linear-gradient(156deg, #93C3FF 0%, #6E7EFF 88%);
+          box-shadow: 0 3px 7px -2px #8DB1FF;
+          border-radius: 19px;
+          line-height: 2.7rem;
+          height: 2.7rem;
+          width: 9.6rem;
+          font-size: 14px;
+          color: #FFFFFF;
+          border: none;
+          outline: none;
+        }
+      }
     }
   }
-  input{
-    outline: none;
-    border: none;
-    font-size: 15px;
-    background-color: #FFFFFF;
-  }
-}
-.bottomPayBtn{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 98%;
-  margin-left: -10px;
-  height: 4rem;
-  /*left:0;*/
-  right:0;
-  position: fixed;
-  bottom: 0;
-  border-top:1px solid #eeeeee;
-  z-index: 5;
-}
-.bottomPayBtn_ {
 
-}
-  .pushBtn{
-    width: 8rem;
-    text-align: center;
-    height: 100%;
-    color: #FFFFFF;
-    font-size: 16px;
-    line-height: 4rem;
-    background: linear-gradient(to right, #00e2a8, #1bdbea);
-
-  }
 </style>
