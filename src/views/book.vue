@@ -168,7 +168,7 @@ export default {
           let arr = [];
           for (var i = 0; i < this.changeItem.roomCount; i++) {
               let obj = {
-                'roomTypeName': '行政大床', // 房型名称
+                'roomTypeName': '智慧大床房', // 房型名称
                 'roomPrice': '1', // 单价
                 'breakfast': '0', // 每个房间早餐份数,
                 'roomNo': ''
